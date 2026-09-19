@@ -1,0 +1,106 @@
+title: Wiki State-Changing Write or Identity Registration via HTTP GET
+id: cc0c558e-a887-4364-b323-bb3a3b5fef67
+status: experimental
+description: |
+    Detects requests that change a wiki's state while arriving as HTTP GET. Only the handlers that
+    actually commit a change are matched, in three families:
+    (1) UseModWiki / ProWiki save handlers, whose submit endpoints are prefixed "form_"
+    (action=form_edit saves a page, action=form_editprefs writes the account preferences that
+    register a username on these engines), plus action=delete;
+    (2) MediaWiki-family write API calls (api.php with action=edit, createaccount, delete, move,
+    upload, rollback or block), which the software expects as POST with a token, so a GET-delivered
+    one is anomalous on its own;
+    (3) MediaWiki form submits delivered as GET (action=submit, or a login/create-account page
+    carrying its submit parameters in the query string).
+    The edit form view (index.php?action=edit) is deliberately NOT matched: that is a read, and
+    every human editor generates it. This distinction is the point of the rule.
+    Grounding. The German wiki incident ran on ProWiki, a UseModWiki derivative; the published
+    export records the actions the swarm's requests carried, and the state-changing ones are
+    form_edit (the save handler), editprefs / form_editprefs (the identity write that produced
+    about 3,100 usernames in this export and more than 3,700 across the wikis) and delete. The
+    read-only probes in the same export carry browse, browse-bare, rc, random and search, and this
+    rule ignores them.
+    The rule is written for webserver access logs, which is the one telemetry source a
+    volunteer-run wiki actually has.
+references:
+    - https://collusion.wiki/
+    - https://www.mediawiki.org/wiki/API:Edit
+    - http://www.usemod.com/cgi-bin/wiki.pl?UseModWiki
+author: Apart Research + CeSIA AI Incident Response Sprint, "Caught From Outside" team
+date: 2026-09-13
+tags:
+    - attack.impact
+    - attack.t1565
+    - attack.persistence
+    - attack.t1136
+logsource:
+    category: webserver
+    definition: 'Requirements: access logs that record the full request line including the query string, the HTTP method, the status code and the client IP. Combined access logs qualify; logs truncated at the path do not, because the action lives in the query string.'
+detection:
+    selection_method:
+        cs-method: 'GET'
+    selection_write_usemod:
+        cs-uri-query|contains:
+            - 'action=form_edit'
+            - 'action=form_editprefs'
+            - 'action=editprefs&'
+            - 'action=delete'
+            - 'action=form_delete'
+    selection_write_api:
+        cs-uri-stem|endswith: '/api.php'
+        cs-uri-query|contains:
+            - 'action=edit'
+            - 'action=createaccount'
+            - 'action=delete'
+            - 'action=move'
+            - 'action=upload'
+            - 'action=rollback'
+            - 'action=block'
+    selection_write_submit:
+        cs-uri-query|contains:
+            - 'action=submit'
+            - 'wpSave='
+            - 'wpCreateaccount='
+    condition: selection_method and 1 of selection_write_*
+falsepositives:
+    - Wiki maintenance scripts, import or migration jobs, and bot accounts approved under the wiki's own bot policy. Exclude their source addresses and declared user agents before deploying.
+    - Wiki extensions or mobile clients that legitimately accept a write over GET.
+    - Administrator cleanup sweeps, which produce bursts of delete actions from one address. Exclude the administrators' addresses, or the swarm's own cleanup will look like the swarm.
+level: low
+---
+title: Wiki GET-Write or Identity-Registration Burst From One Client
+id: 85469f73-aa8a-4b47-b221-425e0ad7d9cf
+status: experimental
+description: |
+    Raises the single-request rule above to an alert when one client address produces 30 or more
+    state-changing GET requests within an hour.
+    Threshold rationale. The published export of the German wiki incident holds 14,591 saves over
+    39 days with a peak of 6,543 edits on 2026-06-18, and the administrators were deleting about
+    100 pages a day trying to keep up. A real agent burst therefore sits in the tens to hundreds of
+    writes per client-hour. A human editor saves a handful of pages an hour, and does so by POST.
+    Thirty per hour per client is about an order of magnitude above a busy human and well below the
+    observed swarm, which leaves room for a smaller swarm while staying quiet on normal editing.
+    Wikis with an approved bot fleet should raise the number or exclude the bot addresses rather
+    than switch the rule off.
+    Known blind spot. A swarm that spreads one or two writes across hundreds of addresses stays
+    under any per-address threshold. Our synthetic check reproduces this: the same traffic that
+    raises no per-address alert raises one immediately when the same threshold is applied to the
+    /16 prefix. Operators who can group by network prefix, or who alert on the total rate of
+    state-changing GET requests site-wide, should do so alongside this rule.
+references:
+    - https://collusion.wiki/
+author: Apart Research + CeSIA AI Incident Response Sprint, "Caught From Outside" team
+date: 2026-09-13
+correlation:
+    type: event_count
+    rules:
+        - cc0c558e-a887-4364-b323-bb3a3b5fef67
+    group-by:
+        - c-ip
+    timespan: 1h
+    condition:
+        gte: 30
+falsepositives:
+    - Approved wiki bots, migration jobs and administrator cleanup sweeps, as above.
+    - A shared egress address (university, corporate NAT, VPN) behind which many editors work. Group by client address and user agent together if that is common on the wiki.
+level: high

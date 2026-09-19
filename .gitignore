@@ -1,0 +1,13 @@
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+.python-version
+
+# OS
+.DS_Store
+
+# The Anthropic Mythos 5 transcript is not re-hosted here (see README). If you
+# download it to re-run the audits, keep it out of version control:
+**/mythos5_transcript.jsonl
+resources/

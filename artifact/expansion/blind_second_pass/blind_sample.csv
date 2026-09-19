@@ -1,0 +1,21 @@
+sample_id,incident_id,signal_id,corpus,rule_id_or_path,commit_hash_at_incident_date
+1,ANTH_C,ANTH_C-12,registry,PyPI download telemetry (public BigQuery dataset),"n/a (public docs, not a git corpus)"
+2,WIKI,WIKI-01,elastic,(no matching rule),480961ba1cac4f85ddf01c0ab5f89bbf373c513c
+3,WIKI,WIKI-15,sigma,(no matching rule),994da16651194500b607a3007186c29779e1f961
+4,AISI,AISI-03,elastic,rules/_deprecated/command_and_control_tor_activity_to_the_internet.toml,b36bcba204889c7141788b225504eaaefc1a7e9c
+5,AISI,AISI-07,sigma,none,1aacbedf7fc04067e6b1b2594c4b7c1c2ff649a9
+6,WIKI,WIKI-17,falco,(no matching rule),6cbb113dd3fbcaf157c077414a57d2180f3e0eec
+7,HF,HF-05,vendor,GuardDuty UnauthorizedAccess:Runtime/MetadataDNSRebind; UnauthorizedAccess:IAMUser/InstanceCredentialExfiltration.OutsideAWS,"n/a (docs read 2026-09-13, not date-pinned)"
+8,WIKI,WIKI-15,falco,(no matching rule),6cbb113dd3fbcaf157c077414a57d2180f3e0eec
+9,WIKI,WIKI-16,falco,(no matching rule),6cbb113dd3fbcaf157c077414a57d2180f3e0eec
+10,IRREG,IRREG-07,sigma,none,941c27449146f1afb95f2ea36b2b4528d988dfbe
+11,IRREG,IRREG-07,elastic,none,99e653f5790e98b02a9eec46b2b378c67f8854f3
+12,HF,HF-04,sigma,(no matching rule),fe2a6e82acc831a9a49f8f2261c127d50a1db306
+13,IRREG,IRREG-03,falco,none,c72713ee2e6330195979124de4f656546ad1e0fd
+14,ANTH_C,ANTH_C-08,elastic,rules/cross-platform/initial_access_elastic_defend_alert_package_manager_ancestor.toml (rule_id 344e6c7d-ceb0-4f20-ba04-7c75569a7e38),5ffc0ed1295804eac7840cb41cb748473c2d7744
+15,IRREG,IRREG-06,elastic,none,99e653f5790e98b02a9eec46b2b378c67f8854f3
+16,HF,HF-02,sigma,rules/network/dns/net_dns_external_service_interaction_domains.yml (id aff715fa-4dd5-497a-8db3-910bea555566),fe2a6e82acc831a9a49f8f2261c127d50a1db306
+17,HF,HF-19,vendor,GuardDuty Execution:Runtime/NewBinaryExecuted,"n/a (docs read 2026-09-13, not date-pinned)"
+18,AISI,AISI-05,sigma,rules/linux/process_creation/proc_creation_lnx_proxy_connection.yml,1aacbedf7fc04067e6b1b2594c4b7c1c2ff649a9
+19,HF,HF-14,elastic,rules/cross-platform/persistence_web_server_potential_command_injection.toml,1eaa12aa6d2f2047a680d2260fa75e635dd4b9f6
+20,WIKI,WIKI-07,sigma,rules/windows/dns_query/dns_query_win_common_malware_hosting_services.yml,994da16651194500b607a3007186c29779e1f961

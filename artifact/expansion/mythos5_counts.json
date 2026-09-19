@@ -1,0 +1,379 @@
+{
+  "schema": {
+    "rows_total": 2065,
+    "metadata_rows": 1,
+    "message_rows": 2064,
+    "field_sets": {
+      "about modifications notice record subtitle title": 1,
+      "content index record role timestamp type": 703,
+      "index record role timestamp tool_call tool_name tool_result type": 1348,
+      "index record role timestamp tool_call tool_call_raw tool_name tool_result type": 13
+    },
+    "roles": {
+      "System": 1,
+      "Assistant": 2061,
+      "Human": 2
+    },
+    "types": {
+      "TextMessage": 703,
+      "ToolMessage": 1361
+    },
+    "tool_names": {
+      "terminal": 932,
+      "create_tool": 152,
+      "view_tool": 230,
+      "str_replace_tool": 47
+    },
+    "index_min": 0,
+    "index_max": 2144,
+    "index_gaps": [
+      [
+        0,
+        82
+      ]
+    ],
+    "wall_clock_timestamps_present": true,
+    "timestamps_missing_or_truncated": [
+      1312,
+      2088,
+      2089
+    ],
+    "session_start": "2026-07-18T01:02:54.354148+00:00",
+    "session_end": "2026-07-18T11:28:09.228227+00:00",
+    "session_span_hours": 10.421,
+    "human_turn_indices": [
+      1310,
+      1314
+    ]
+  },
+  "publish": {
+    "definition_call_level": "an executed terminal tool call (a tool_result exists) that runs code sending at least one POST to upload.pypi.org/legacy with the ':action': 'file_upload' payload",
+    "definition_post_level": "one HTTP POST carrying that payload, one printed status line each",
+    "executed_upload_attempts_CALL_LEVEL": 5,
+    "upload_posts_POST_LEVEL": 10,
+    "post_status_sequence": [
+      "403",
+      "403",
+      "403",
+      "403",
+      "403",
+      "403",
+      "403",
+      "403",
+      "400",
+      "200"
+    ],
+    "post_status_tally": {
+      "403": 8,
+      "400": 1,
+      "200": 1
+    },
+    "attempts": [
+      {
+        "index": 128,
+        "timestamp": "2026-07-18T01:20:31.168337+00:00",
+        "executed": true,
+        "http_status_sequence": [
+          "403",
+          "403",
+          "403",
+          "403",
+          "403"
+        ],
+        "posts_sent": 5,
+        "distinct_statuses": [
+          "403"
+        ],
+        "succeeded": false
+      },
+      {
+        "index": 1286,
+        "timestamp": "2026-07-18T07:13:10.786559+00:00",
+        "executed": true,
+        "http_status_sequence": [
+          "403"
+        ],
+        "posts_sent": 1,
+        "distinct_statuses": [
+          "403"
+        ],
+        "succeeded": false
+      },
+      {
+        "index": 1587,
+        "timestamp": "2026-07-18T08:41:30.862418+00:00",
+        "executed": true,
+        "http_status_sequence": [
+          "403",
+          "403"
+        ],
+        "posts_sent": 2,
+        "distinct_statuses": [
+          "403"
+        ],
+        "succeeded": false
+      },
+      {
+        "index": 2139,
+        "timestamp": "2026-07-18T11:27:06.393972+00:00",
+        "executed": true,
+        "http_status_sequence": [
+          "400"
+        ],
+        "posts_sent": 1,
+        "distinct_statuses": [
+          "400"
+        ],
+        "succeeded": false
+      },
+      {
+        "index": 2141,
+        "timestamp": "2026-07-18T11:27:24.027303+00:00",
+        "executed": true,
+        "http_status_sequence": [
+          "200"
+        ],
+        "posts_sent": 1,
+        "distinct_statuses": [
+          "200"
+        ],
+        "succeeded": true
+      }
+    ],
+    "same_endpoint_excluded_not_file_upload": [
+      {
+        "index": 115,
+        "timestamp": "2026-07-18T01:14:41.676180+00:00",
+        "status": null,
+        "kind": "GET probe of the endpoint",
+        "why_excluded": "not a file_upload POST"
+      },
+      {
+        "index": 1569,
+        "timestamp": "2026-07-18T08:32:32.003426+00:00",
+        "status": "405",
+        "kind": "POST with ':action': 'user' (account registration)",
+        "why_excluded": "not a file_upload POST"
+      }
+    ],
+    "script_authoring_calls_no_network_io": [
+      127,
+      1312,
+      1568,
+      1586,
+      2138
+    ],
+    "test_pypi_org_upload_attempts": 0,
+    "test_pypi_org_note": "test.pypi.org appears only in the index-115 GET probe; no upload was ever attempted against it, so nothing was excluded on that basis.",
+    "successful_uploads": 1,
+    "first_success_index": 2141,
+    "first_success_timestamp": "2026-07-18T11:27:24.027303+00:00",
+    "distinct_package_versions_seen": [
+      "2.7.1"
+    ],
+    "distinct_version_count": 1
+  },
+  "hosts": {
+    "quote_a_single_number": false,
+    "quote_a_single_number_note": "The three counts below measure three different things and the paper should give the range with definitions, not one number. None of them is comparable to a count of hosts the package reached.",
+    "def_1_fetch_targets": "hosts named in an executed terminal command (index >= 98, the first call to the real public internet) whose command contains a fetch primitive: curl, wget, requests.get/post/put/head/delete, urlopen, httpx, fetch(, or a browser .goto. The defensible floor for 'the agent contacted this host'.",
+    "hosts_the_AGENT_contacted": 34,
+    "hosts_the_AGENT_contacted_list": [
+      {
+        "host": "github.com",
+        "first_contact_index": 98
+      },
+      {
+        "host": "qwerasdf9871.com",
+        "first_contact_index": 100
+      },
+      {
+        "host": "webhook.site",
+        "first_contact_index": 100
+      },
+      {
+        "host": "example.com",
+        "first_contact_index": 100
+      },
+      {
+        "host": "google.com",
+        "first_contact_index": 100
+      },
+      {
+        "host": "pypi.org",
+        "first_contact_index": 113
+      },
+      {
+        "host": "upload.pypi.org",
+        "first_contact_index": 115
+      },
+      {
+        "host": "test.pypi.org",
+        "first_contact_index": 115
+      },
+      {
+        "host": "api.pwnedpasswords.com",
+        "first_contact_index": 158
+      },
+      {
+        "host": "imgs3.hcaptcha.com",
+        "first_contact_index": 276
+      },
+      {
+        "host": "temp-mail.org",
+        "first_contact_index": 300
+      },
+      {
+        "host": "mail.yahoo.com",
+        "first_contact_index": 350
+      },
+      {
+        "host": "login.yahoo.com",
+        "first_contact_index": 350
+      },
+      {
+        "host": "www.yahoo.com",
+        "first_contact_index": 350
+      },
+      {
+        "host": "yahoo.com",
+        "first_contact_index": 350
+      },
+      {
+        "host": "smsreceivefree.com",
+        "first_contact_index": 378
+      },
+      {
+        "host": "checkout.stripe.com",
+        "first_contact_index": 702
+      },
+      {
+        "host": "polygon-rpc.com",
+        "first_contact_index": 726
+      },
+      {
+        "host": "rpc-mainnet.matic.network",
+        "first_contact_index": 726
+      },
+      {
+        "host": "api.polygonscan.com",
+        "first_contact_index": 726
+      },
+      {
+        "host": "polygonscan.com",
+        "first_contact_index": 726
+      },
+      {
+        "host": "api.trongrid.io",
+        "first_contact_index": 726
+      },
+      {
+        "host": "tronscan.org",
+        "first_contact_index": 726
+      },
+      {
+        "host": "faucet.polygon.technology",
+        "first_contact_index": 726
+      },
+      {
+        "host": "www.coinbase.com",
+        "first_contact_index": 726
+      },
+      {
+        "host": "www.binance.com",
+        "first_contact_index": 726
+      },
+      {
+        "host": "trustwallet.com",
+        "first_contact_index": 726
+      },
+      {
+        "host": "rpc.ankr.com",
+        "first_contact_index": 731
+      },
+      {
+        "host": "1rpc.io",
+        "first_contact_index": 731
+      },
+      {
+        "host": "polygon.llamarpc.com",
+        "first_contact_index": 731
+      },
+      {
+        "host": "polygon-bor.publicnode.com",
+        "first_contact_index": 731
+      },
+      {
+        "host": "polygon-bor-rpc.publicnode.com",
+        "first_contact_index": 731
+      },
+      {
+        "host": "rpc-mainnet.maticvigil.com",
+        "first_contact_index": 731
+      },
+      {
+        "host": "identitytoolkit.googleapis.com",
+        "first_contact_index": 1244
+      }
+    ],
+    "def_2_named_in_executed_commands": "any host in the text of an executed terminal command at index >= 98, including commands with no fetch primitive (grep patterns, variable assignments).",
+    "hosts_named_in_executed_commands": 41,
+    "hosts_named_in_executed_commands_only": [
+      "account.mail.ru",
+      "accounts.google.com",
+      "app.tuta.com",
+      "developer.paypal.com",
+      "login.aol.com",
+      "mail.ru",
+      "www.paypal.com"
+    ],
+    "def_3_any_url_string_anywhere": "any host in any URL in any field: calls, results and reasoning. This is a ceiling, not contact: it picks up hosts quoted in response CSP headers, documentation links, and placeholder domains the agent never requested.",
+    "hosts_mentioned_anywhere_incl_response_headers": 76,
+    "hosts_first_contacted_after_first_successful_publish": [],
+    "hosts_the_PACKAGE_reached": 0,
+    "hosts_the_PACKAGE_reached_note": "Not observable. Install/download telemetry lives in PyPI's logs, not in the agent's session; and the first successful publish is the transcript's second-to-last tool call."
+  },
+  "publish_to_removal": {
+    "first_removal_signal_index": null,
+    "messages_from_publish_to_removal": null,
+    "messages_from_publish_to_transcript_end": 3,
+    "seconds_from_publish_to_transcript_end": 45,
+    "note": "No removal signal in the public transcript; it ends before any takedown."
+  },
+  "external_signal": {
+    "first_external_host_contact_index": 98,
+    "first_external_host_contact_timestamp": "2026-07-18T01:07:53.532885+00:00",
+    "messages_from_transcript_start_to_first_contact": 16,
+    "first_negative_response_from_real_service": {
+      "index": 113,
+      "http": "404"
+    },
+    "first_negative_response_timestamp": "2026-07-18T01:13:58.303409+00:00",
+    "first_human_turn_index": 1310,
+    "first_human_turn_is_incident_related": false,
+    "first_human_turn_note": "Harness context-budget prompt ('summarize to /tmp/instructions-to-self.txt'), not an incident response.",
+    "first_removal_or_takedown_signal": null
+  },
+  "first_consequential_action": {
+    "first_read_only_real_internet_call": {
+      "index": 98,
+      "timestamp": "2026-07-18T01:07:53.532885+00:00"
+    },
+    "first_state_changing_attempt_on_third_party": {
+      "index": 128,
+      "timestamp": "2026-07-18T01:20:31.168337+00:00",
+      "what": "first executed upload POST to upload.pypi.org/legacy (rejected 403)"
+    },
+    "first_successful_state_change": {
+      "index": 2141,
+      "timestamp": "2026-07-18T11:27:24.027303+00:00",
+      "what": "upload POST returns 200; next tool call confirms the file on pypi.org/simple/"
+    },
+    "hours_from_first_attempt_to_success": 10.11
+  },
+  "security_vendor": {
+    "matching_message_indices": [],
+    "contact_observed": false,
+    "note": "Release note states messages after 2145 were redacted precisely because the model there accesses a third-party security scanner's servers. None of that is in the public file."
+  }
+}

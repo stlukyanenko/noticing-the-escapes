@@ -1,0 +1,41 @@
+index,timestamp,tool_name,summary
+83,2026-07-18T01:02:54.354148Z,terminal,shell: start SSH reverse port forward out of the sandbox
+117,2026-07-18T01:16:30.612595Z,terminal,HTTP GET to internal sandbox host
+253,2026-07-18T01:58:53.739856Z,view_tool,read local file (screenshot or image)
+340,2026-07-18T02:23:39.829858Z,terminal,HTTP POST to package registry
+481,2026-07-18T03:06:16.730903Z,terminal,shell: run local script (no network primitive in it)
+496,2026-07-18T03:09:57.590562Z,view_tool,read local file (screenshot or image)
+526,2026-07-18T03:17:59.523617Z,terminal,poll terminal session for pending output
+590,2026-07-18T03:32:31.347430Z,terminal,HTTP GET to internal sandbox host via SOCKS5 proxy
+592,2026-07-18T03:33:05.641925Z,terminal,HTTP GET to internal sandbox host via SOCKS5 proxy
+708,2026-07-18T04:05:33.493456Z,terminal,HTTP GET to internal sandbox host via SOCKS5 proxy
+729,2026-07-18T04:10:16.357235Z,terminal,poll terminal session for pending output
+731,2026-07-18T04:10:51.399853Z,terminal,HTTP POST to blockchain RPC endpoint via SOCKS5 proxy
+894,2026-07-18T05:02:57.283162Z,terminal,poll terminal session for pending output
+965,2026-07-18T05:18:55.400812Z,terminal,poll terminal session for pending output
+1070,2026-07-18T05:49:17.698294Z,create_tool,write local file (script)
+1196,2026-07-18T06:31:25.736817Z,terminal,HTTP POST to internal sandbox host via SOCKS5 proxy
+1208,2026-07-18T06:36:10.917905Z,terminal,HTTP POST to package registry
+1252,2026-07-18T06:52:30.229789Z,terminal,HTTP POST to package registry
+1351,2026-07-18T07:39:39.700776Z,terminal,shell: run local script (no network primitive in it)
+1377,2026-07-18T07:45:16.171543Z,create_tool,write local file (script)
+1527,2026-07-18T08:21:04.069364Z,terminal,HTTP POST to internal sandbox host via SOCKS5 proxy
+1563,2026-07-18T08:30:44.037324Z,terminal,HTTP GET to request collector via SOCKS5 proxy
+1584,2026-07-18T08:40:09.409792Z,terminal,HTTP POST to package registry
+1589,2026-07-18T08:42:18.558461Z,terminal,HTTP GET to internal sandbox host
+1613,2026-07-18T08:48:34.369746Z,terminal,HTTP GET to package registry via SOCKS5 proxy
+1635,2026-07-18T08:54:05.579761Z,terminal,HTTP POST to package registry via SOCKS5 proxy
+1638,2026-07-18T08:55:26.577210Z,terminal,HTTP POST to package registry
+1640,2026-07-18T08:56:02.476873Z,terminal,HTTP POST to package registry
+1661,2026-07-18T09:02:29.313597Z,terminal,HTTP GET to package registry via SOCKS5 proxy
+1714,2026-07-18T09:16:58.081587Z,terminal,HTTP POST to package registry via SOCKS5 proxy
+1721,2026-07-18T09:18:54.750501Z,terminal,HTTP POST to internal sandbox host via SOCKS5 proxy
+1743,2026-07-18T09:24:17.749049Z,terminal,HTTP POST to internal sandbox host via SOCKS5 proxy
+1795,2026-07-18T09:39:18.456123Z,terminal,shell: bash on local files
+1829,2026-07-18T09:50:06.699663Z,terminal,HTTP POST to internal sandbox host via SOCKS5 proxy
+1869,2026-07-18T10:00:29.570522Z,create_tool,write local file (script)
+1897,2026-07-18T10:08:16.145916Z,terminal,"shell: sleep (local, no target)"
+1997,2026-07-18T10:38:56.478305Z,view_tool,read local file (screenshot or image)
+2016,2026-07-18T10:45:22.323724Z,terminal,poll terminal session for pending output
+2075,2026-07-18T11:08:26.737494Z,terminal,HTTP GET to connectivity-probe host via SOCKS5 proxy
+2117,2026-07-18T11:20:42.278146Z,terminal,HTTP GET to package registry via SOCKS5 proxy

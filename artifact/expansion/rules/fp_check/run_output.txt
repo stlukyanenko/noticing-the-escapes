@@ -1,0 +1,18 @@
+synthetic log written to artifact/expansion/rules/fp_check/access_sample.log (3412 benign + 674 injected lines)
+
+--- benign traffic only (8 hours: readers, crawler, one human editor, one POST bot)
+    log lines:                        3412
+    base-rule matches (GET + write):  0
+    client-hours with >=1 match:      0
+    correlation alerts (>=30/1h/IP):  0
+    same threshold grouped by /16:    0 alert(s)
+
+--- benign traffic plus the injected swarm pattern
+    log lines:                        4086
+    base-rule matches (GET + write):  674
+    client-hours with >=1 match:      121
+    correlation alerts (>=30/1h/IP):  1
+      ALERT 20.165.9.9 at 2026-06-18T12Z: 140 state-changing GET requests
+    same threshold grouped by /16:    2 alert(s)
+      ALERT 20.165.0.0/16 at 2026-06-18T10Z: 534 state-changing GET requests
+      ALERT 20.165.0.0/16 at 2026-06-18T12Z: 140 state-changing GET requests

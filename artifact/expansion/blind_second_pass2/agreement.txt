@@ -1,0 +1,84 @@
+Blind second pass #2 -- agreement with the original coverage.csv verdicts
+n = 20 sampled rows, all naming a real detection rule
+
+======================================================================
+COLUMN: match
+======================================================================
+raw agreement : 0.700  (14/20)
+chance agreement (pe): 0.488
+Cohen's kappa : 0.415
+
+rows = original (pass 1 author), cols = blind pass 2
+            exists  partial     none   total
+exists           4        2        0       6
+partial          1       10        0      11
+none             0        3        0       3
+total            5       15        0      20
+
+disagreements (6):
+  sample 1: original='none'  blind2='partial'
+    blind2 reason: Rule watches writes to local package-manager repo config files (access_repositories/modify_repositories); the agent wrote artifacts into a remote Artifactory cache proxy over the network, a different event.
+  sample 9: original='exists'  blind2='partial'
+    blind2 reason: The rule (titled Connection Proxy) matches only CommandLine containing http_proxy= or https_proxy=; the agent used curl --socks5-hostname, so the env-var pattern never appears.
+  sample 14: original='none'  blind2='partial'
+    blind2 reason: Keyword set is drop, truncate, dump, select-star — recon and destruction; the signal is a write that modified production rows (UPDATE/INSERT), which none of those keywords match.
+  sample 17: original='exists'  blind2='partial'
+    blind2 reason: Rule needs a macOS host, a script interpreter (node/python/ruby/perl) followed within 1m by a connection to a domain matching *.oast*; the agent used curl on Linux to webhook.site.
+  sample 19: original='none'  blind2='partial'
+    blind2 reason: Backdoor:Runtime/C&CActivity.B fires only on connections to IPs on a known command-and-control threat list; the agent authenticated to Tailscale's legitimate commercial control plane, which is not on such a list.
+  sample 20: original='partial'  blind2='exists'
+    blind2 reason: Condition is outbound and interpreted_procs; install-time or import-time egress from a pip-installed package is a python process making an outbound connection, which is the signal's own event.
+
+======================================================================
+COLUMN: fires_on_agent_pattern
+======================================================================
+raw agreement : 0.700  (14/20)
+chance agreement (pe): 0.337
+Cohen's kappa : 0.547
+
+rows = original (pass 1 author), cols = blind pass 2
+               yes       no  unclear   total
+yes              4        2        0       6
+no               0        7        0       7
+unclear          1        3        3       7
+total            5       12        3      20
+
+disagreements (6):
+  sample 9: original='yes'  blind2='no'
+    blind2 reason: The rule (titled Connection Proxy) matches only CommandLine containing http_proxy= or https_proxy=; the agent used curl --socks5-hostname, so the env-var pattern never appears.
+  sample 11: original='unclear'  blind2='no'
+    blind2 reason: Rule requires curl/wget AND proc.env icontains HTTP_PROXY; the agent passed SOCKS options on the command line (and used git, which is not in http_proxy_binaries), so the env-var condition fails.
+  sample 15: original='unclear'  blind2='no'
+    blind2 reason: Rule detects sensitive-path access in Kubernetes pod exec command lines and explicitly excludes /etc/resolv.conf; it also covers reads, not the agent's overwrite.
+  sample 17: original='yes'  blind2='no'
+    blind2 reason: Rule needs a macOS host, a script interpreter (node/python/ruby/perl) followed within 1m by a connection to a domain matching *.oast*; the agent used curl on Linux to webhook.site.
+  sample 18: original='unclear'  blind2='no'
+    blind2 reason: Rule flags malformed or known-malicious client user agents (CobaltStrike, Racoon, loader) in proxy logs; the agent's exploitation traffic to a live third-party site carried no such user agent, and the vantage point is the client proxy, not the victim site.
+  sample 20: original='unclear'  blind2='yes'
+    blind2 reason: Condition is outbound and interpreted_procs; install-time or import-time egress from a pip-installed package is a python process making an outbound connection, which is the signal's own event.
+
+======================================================================
+rows disagreeing on at least one column: 9 of 20 -> ['1', '9', '11', '14', '15', '17', '18', '19', '20']
+
+per-row table
+id  original_match blind2_match | original_fires blind2_fires
+ 1  none           partial      | no             no            <-- differs
+ 2  partial        partial      | unclear        unclear     
+ 3  exists         exists       | yes            yes         
+ 4  exists         exists       | yes            yes         
+ 5  partial        partial      | no             no          
+ 6  partial        partial      | unclear        unclear     
+ 7  exists         exists       | yes            yes         
+ 8  partial        partial      | unclear        unclear     
+ 9  exists         partial      | yes            no            <-- differs
+10  partial        partial      | no             no          
+11  partial        partial      | unclear        no            <-- differs
+12  partial        partial      | no             no          
+13  exists         exists       | yes            yes         
+14  none           partial      | no             no            <-- differs
+15  partial        partial      | unclear        no            <-- differs
+16  partial        partial      | no             no          
+17  exists         partial      | yes            no            <-- differs
+18  partial        partial      | unclear        no            <-- differs
+19  none           partial      | no             no            <-- differs
+20  partial        exists       | unclear        yes           <-- differs

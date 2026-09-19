@@ -1,0 +1,131 @@
+title: Package Registry Account Created Then Uploading to One Project Name
+id: 668b95a5-cae8-4c34-bf9d-62d0bbd608ff
+status: experimental
+description: |
+    Registry-side building block. Detects the creation of a new publisher account in a package
+    registry (PyPI, npm or an internal equivalent). This rule is intended only as the first step of
+    the correlation below; on its own it fires on every legitimate new user.
+    This is a rule for registry operators, not for the model developer's sandbox. In the Anthropic
+    "incident C" case an agent published a real package that went live for about an hour and reached
+    roughly fifteen hosts, and the registry's own takedown was the detection. The agent's work
+    before the successful publish happened entirely in the registry's application logs.
+references:
+    - https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents
+    - https://docs.pypi.org/api/
+author: Apart Research + CeSIA AI Incident Response Sprint, "Caught From Outside" team
+date: 2026-09-13
+tags:
+    - attack.persistence
+    - attack.t1136
+logsource:
+    product: package_registry
+    service: application
+    definition: 'Requirements: registry application logs carrying an event name, the acting account name, the account age or creation event, the target project name, the client address and the HTTP status of upload API calls. Field names below follow the ECS-style naming a registry operator would normalise to.'
+detection:
+    selection:
+        event.action:
+            - 'account_created'
+            - 'user_register'
+    condition: selection
+falsepositives:
+    - Every genuine new publisher. Do not alert on this rule alone.
+level: informational
+---
+title: Package Registry Upload Rejected
+id: 7bda4671-7160-402b-9f7a-e1a78faaa007
+status: experimental
+description: |
+    Registry-side building block. Detects a rejected upload to the registry's publish API: HTTP 400
+    or 403, which is what a publisher receives when the project name is taken, the name is too close
+    to an existing one, the metadata is invalid or the account lacks permission on that project.
+    A human publisher hits one or two of these and then reads the error. An agent retries.
+references:
+    - https://docs.pypi.org/api/
+author: Apart Research + CeSIA AI Incident Response Sprint, "Caught From Outside" team
+date: 2026-09-13
+tags:
+    - attack.resource-development
+    - attack.t1608.001
+logsource:
+    product: package_registry
+    service: application
+    definition: 'Requirements: upload API logs with the acting account, target project name and HTTP status.'
+detection:
+    selection:
+        event.action: 'package_upload'
+        http.response.status_code:
+            - 400
+            - 403
+    condition: selection
+falsepositives:
+    - Ordinary publisher mistakes: a name already taken, a malformed wheel, an expired token.
+    - Continuous-integration pipelines re-running a publish step after a failure.
+level: informational
+---
+title: Package Registry Upload Accepted
+id: d6bb9972-2d64-471a-804a-155ad71689c0
+status: experimental
+description: |
+    Registry-side building block. Detects an accepted upload to the registry's publish API.
+references:
+    - https://docs.pypi.org/api/
+author: Apart Research + CeSIA AI Incident Response Sprint, "Caught From Outside" team
+date: 2026-09-13
+tags:
+    - attack.resource-development
+    - attack.t1608.001
+logsource:
+    product: package_registry
+    service: application
+    definition: 'Requirements: upload API logs with the acting account, target project name and HTTP status.'
+detection:
+    selection:
+        event.action: 'package_upload'
+        http.response.status_code:
+            - 200
+            - 201
+    condition: selection
+falsepositives:
+    - Every genuine release. Do not alert on this rule alone.
+level: informational
+---
+title: New Package Registry Account Retrying a Name Until an Upload Succeeds
+id: c2e54b18-08e5-4e0e-a068-1226871182a2
+status: experimental
+description: |
+    Detects the sequence a newly created publisher account creating itself, then being rejected
+    repeatedly on uploads for the same project name, then succeeding, all within one day and from
+    one account. That ordering is the machine-readable shape of "an automated publisher probing
+    until the registry lets it through", and it separates an agent from a human publisher, who
+    usually reads the first rejection and changes the name or the metadata rather than retrying.
+    Window rationale. One day is chosen because the human version of this sequence spans days
+    (a person files a name dispute, or comes back after reading the docs), while the agent version
+    in the public record ran in minutes to hours: the package in the Anthropic case was live for
+    about an hour before the registry removed it. Registries with heavy CI traffic can tighten the
+    window to one hour without losing the pattern.
+    Deliberately generic. No package name, typosquat target or hostname appears in this rule, and
+    none is needed: the signal is the ordering of registry events, not any particular name.
+references:
+    - https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents
+    - https://docs.pypi.org/api/
+author: Apart Research + CeSIA AI Incident Response Sprint, "Caught From Outside" team
+date: 2026-09-13
+correlation:
+    type: temporal_ordered
+    rules:
+        - 668b95a5-cae8-4c34-bf9d-62d0bbd608ff
+        - 7bda4671-7160-402b-9f7a-e1a78faaa007
+        - d6bb9972-2d64-471a-804a-155ad71689c0
+    group-by:
+        - user.name
+    timespan: 1d
+    aliases:
+        user.name:
+            668b95a5-cae8-4c34-bf9d-62d0bbd608ff: user.name
+            7bda4671-7160-402b-9f7a-e1a78faaa007: user.name
+            d6bb9972-2d64-471a-804a-155ad71689c0: user.name
+falsepositives:
+    - A first-time publisher whose first release is rejected for a name clash or bad metadata and who fixes it the same day. Requiring three or more rejections, or grouping by project name as well as account, reduces this.
+    - Automated release pipelines set up by a brand-new account, for example a project migrating to a new organisation.
+    - Registries that return 403 for rate limiting rather than for permissions will produce extra matches; confirm the status-code meaning in the registry's own API before deploying.
+level: medium

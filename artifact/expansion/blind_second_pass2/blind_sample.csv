@@ -1,0 +1,21 @@
+sample_id,incident_id,signal_id,corpus,rule_id_or_path,commit_hash_at_incident_date
+1,HF,HF-03,falco,rules/falco-incubating_rules.yaml :: Update Package Repository,c72713ee2e6330195979124de4f656546ad1e0fd
+2,HF,HF-11,vendor,GuardDuty DefenseEvasion:Runtime/SensitiveFileModified,"n/a (docs read 2026-09-13, not date-pinned)"
+3,HF,HF-19,falco,rules/falco_rules.yaml :: Drop and execute new binary in container,c72713ee2e6330195979124de4f656546ad1e0fd
+4,HF,HF-06,falco,rules/falco_rules.yaml :: Contact K8S API Server From Container,c72713ee2e6330195979124de4f656546ad1e0fd
+5,WIKI,WIKI-09,elastic,rules/windows/command_and_control_common_webservices.toml,480961ba1cac4f85ddf01c0ab5f89bbf373c513c
+6,IRREG,IRREG-02,falco,rules/falco-sandbox_rules.yaml (Interpreted procs outbound network activity),c72713ee2e6330195979124de4f656546ad1e0fd
+7,HF,HF-15,falco,rules/falco-incubating_rules.yaml :: Read environment variable from /proc files,c72713ee2e6330195979124de4f656546ad1e0fd
+8,WIKI,WIKI-11,vendor,GuardDuty DefenseEvasion:Runtime/SensitiveFileModified,"n/a (docs read 2026-09-13, not date-pinned)"
+9,ANTH_C,ANTH_C-01,sigma,"rules/linux/process_creation/proc_creation_lnx_proxy_connection.yml (id 72f4ab3f-787d-495d-a55d-68c2ff46cf4c, 'Connection Proxy', level low)",7a12b5da00612a2211ecbf9d9b96589455bd76f0
+10,WIKI,WIKI-01,sigma,rules/identity/okta/okta_user_created.yml (id b6c718dd-8f53-4b9f-98d8-93fdca966969); rules/cloud/azure/audit_logs/azure_ad_account_created_deleted.yml,994da16651194500b607a3007186c29779e1f961
+11,AISI,AISI-05,falco,rules/falco-incubating_rules.yaml (Program run with disallowed http proxy env),9a1d61d2ac50eb569213d1867c13206aa5e5f09d
+12,HF,HF-10,elastic,rules/windows/command_and_control_common_webservices.toml; rules/macos/... (rule_id b07f0fba-0a78-11f0-8311-b66272739ecb),1eaa12aa6d2f2047a680d2260fa75e635dd4b9f6
+13,WIKI,WIKI-11,elastic,rules/cross-platform/impact_hosts_file_modified.toml (rule_id 9c260313-c811-4ec8-ab89-8f6530e0246c),480961ba1cac4f85ddf01c0ab5f89bbf373c513c
+14,ANTH_D,ANTH_D-03,sigma,rules/category/database/db_anomalous_query.yml (id d84c0ded-edd7-4123-80ed-348bb3ccc4d5),65b39fa48afc2739ed01df03ef61c68be995bb36
+15,HF,HF-11,elastic,rules/integrations/kubernetes/credential_access_kubernetes_pod_exec_sensitive_file_access.toml (rule_id b2c3d4e5-f6a7-4890-b1c2-d3e4f5a60789),1eaa12aa6d2f2047a680d2260fa75e635dd4b9f6
+16,WIKI,WIKI-07,elastic,rules/macos/command_and_control_unusual_network_connection_to_suspicious_web_service.toml (rule_id b07f0fba-0a78-11f0-8311-b66272739ecb),480961ba1cac4f85ddf01c0ab5f89bbf373c513c
+17,ANTH_C,ANTH_C-03,elastic,rules/macos/command_and_control_network_connection_to_oast_domain.toml (rule_id 54214c47-be7c-4f6b-8ef2-78832f9f8f42),5ffc0ed1295804eac7840cb41cb748473c2d7744
+18,IRREG,IRREG-05,sigma,rules/web/proxy_generic/proxy_ua_susp.yml,941c27449146f1afb95f2ea36b2b4528d988dfbe
+19,HF,HF-07,vendor,GuardDuty Backdoor:Runtime/C&CActivity.B,"n/a (docs read 2026-09-13, not date-pinned)"
+20,ANTH_C,ANTH_C-13,falco,rules/falco-sandbox_rules.yaml 'Interpreted procs outbound network activity',9a1d61d2ac50eb569213d1867c13206aa5e5f09d

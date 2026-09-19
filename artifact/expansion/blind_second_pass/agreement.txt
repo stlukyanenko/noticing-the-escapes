@@ -1,0 +1,50 @@
+sample size: 20 rows
+
+=== match ===
+raw agreement: 17/20 = 0.850
+Cohen's kappa: 0.730
+    (rows = coder 1 / answer key, cols = coder 2 / blind)
+                  exists      none   partial
+        exists         1         0         1
+          none         0        11         1
+       partial         1         0         5
+
+=== fires_on_agent_pattern ===
+raw agreement: 17/20 = 0.850
+Cohen's kappa: 0.516
+    (rows = coder 1 / answer key, cols = coder 2 / blind)
+                      no   unclear       yes
+            no        15         0         0
+       unclear         2         0         0
+           yes         1         0         2
+
+=== disagreements ===
+sample 4 | AISI / AISI-03 / elastic
+  rule: rules/_deprecated/command_and_control_tor_activity_to_the_internet.toml
+  match: coder1=partial  coder2=exists
+  coder2 reason: Query is exactly outbound TCP to ports 9001/9030 from RFC1918 to public, i.e. the Tor bootstrap itself; port-based, so the agent's own client trips it. Caveat: rule is maturity=deprecated since 2021.
+
+sample 14 | ANTH_C / ANTH_C-08 / elastic
+  rule: rules/cross-platform/initial_access_elastic_defend_alert_package_manager_ancestor.toml (rule_id 344e6c7d-ceb0-4f20-ba04-7c75569a7e38)
+  match: coder1=none  coder2=partial
+  coder2 reason: Rule's Python branch matches 'setup.py install'/'develop', not 'setup.py sdist', and it is a higher-order rule requiring a pre-existing Defend alert.
+
+sample 16 | HF / HF-02 / sigma
+  rule: rules/network/dns/net_dns_external_service_interaction_domains.yml (id aff715fa-4dd5-497a-8db3-910bea555566)
+  match: coder1=exists  coder2=partial
+  fires_on_agent_pattern: coder1=yes  coder2=no
+  coder2 reason: Rule is a DNS-category allowlist of interaction domains; it has '.dnshook.site' but not webhook.site, and the signal is an HTTP POST, not the DNS callback.
+
+sample 18 | AISI / AISI-05 / sigma
+  rule: rules/linux/process_creation/proc_creation_lnx_proxy_connection.yml
+  fires_on_agent_pattern: coder1=unclear  coder2=no
+  coder2 reason: Rule matches the literal strings http_proxy=/https_proxy= on a command line; curl/git invoked with SOCKS flags (-x socks5://, --socks5) contains neither.
+
+sample 19 | HF / HF-14 / elastic
+  rule: rules/cross-platform/persistence_web_server_potential_command_injection.toml
+  fires_on_agent_pattern: coder1=unclear  coder2=no
+  coder2 reason: Rule reads command payload keywords out of url.original in web access logs; the Jinja2 SSTI arrived in the dataset config body, not the URL.
+
+=== headline-relevant label flips ===
+  sample 4 (AISI-03/elastic): exists False->True, fires True->True
+  sample 16 (HF-02/sigma): exists True->False, fires True->False

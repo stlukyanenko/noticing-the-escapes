@@ -1,0 +1,21 @@
+sample_id,incident_id,signal_id,corpus,rule_id_or_path,match,fires_on_agent_pattern
+1,ANTH_C,ANTH_C-12,registry,PyPI download telemetry (public BigQuery dataset),partial,no
+2,WIKI,WIKI-01,elastic,(no matching rule),none,no
+3,WIKI,WIKI-15,sigma,(no matching rule),none,no
+4,AISI,AISI-03,elastic,rules/_deprecated/command_and_control_tor_activity_to_the_internet.toml,partial,yes
+5,AISI,AISI-07,sigma,none,none,no
+6,WIKI,WIKI-17,falco,(no matching rule),none,no
+7,HF,HF-05,vendor,GuardDuty UnauthorizedAccess:Runtime/MetadataDNSRebind; UnauthorizedAccess:IAMUser/InstanceCredentialExfiltration.OutsideAWS,partial,no
+8,WIKI,WIKI-15,falco,(no matching rule),none,no
+9,WIKI,WIKI-16,falco,(no matching rule),none,no
+10,IRREG,IRREG-07,sigma,none,none,no
+11,IRREG,IRREG-07,elastic,none,none,no
+12,HF,HF-04,sigma,(no matching rule),none,no
+13,IRREG,IRREG-03,falco,none,none,no
+14,ANTH_C,ANTH_C-08,elastic,rules/cross-platform/initial_access_elastic_defend_alert_package_manager_ancestor.toml (rule_id 344e6c7d-ceb0-4f20-ba04-7c75569a7e38),none,no
+15,IRREG,IRREG-06,elastic,none,none,no
+16,HF,HF-02,sigma,rules/network/dns/net_dns_external_service_interaction_domains.yml (id aff715fa-4dd5-497a-8db3-910bea555566),exists,yes
+17,HF,HF-19,vendor,GuardDuty Execution:Runtime/NewBinaryExecuted,exists,yes
+18,AISI,AISI-05,sigma,rules/linux/process_creation/proc_creation_lnx_proxy_connection.yml,partial,unclear
+19,HF,HF-14,elastic,rules/cross-platform/persistence_web_server_potential_command_injection.toml,partial,unclear
+20,WIKI,WIKI-07,sigma,rules/windows/dns_query/dns_query_win_common_malware_hosting_services.yml,partial,no
